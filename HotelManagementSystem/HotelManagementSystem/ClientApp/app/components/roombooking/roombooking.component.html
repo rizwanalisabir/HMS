@@ -1,0 +1,445 @@
+﻿<header></header>
+<div class="container breadcrub">
+    <div>
+        <a class="homebtn left" href="#"></a>
+        <div class="left">
+            <ul class="bcrumbs">
+                <li>/</li>
+                <li><a href="#">Hotels</a></li>
+                <li>/</li>
+                <li><a href="#">U.S.A.</a></li>
+                <li>/</li>
+                <li><a href="#" class="active">New York</a></li>
+            </ul>
+        </div>
+        <a class="backbtn right" href="#"></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="brlines"></div>
+</div>
+<!-- CONTENT -->
+<div class="container">
+    <div class="container pagecontainer offset-0">
+
+        <!-- FILTERS -->
+        <div class="col-md-3 filters offset-0">
+            <!-- TOP TIP -->
+            <div class="filtertip">
+                <div class="padding20">
+                    <p class="size20 bold" style="margin-top:25px;">Room Filters</p>
+                </div>
+                <div class="tip-arrow"></div>
+            </div>
+            <div class="bookfilters hpadding20">
+                <div class="clearfix"></div><br />
+                <!-- HOTELS TAB -->
+                <div class="hotelstab2 active wh95percent">
+                    <div class="w50percent">
+                        <div class="wh90percent textleft">
+                            <span class="opensans size13">Check in date</span>
+                            <input type="text" class="form-control" id="datepicker" #Checkin placeholder="mm/dd/yyyy" />
+                        </div>
+                    </div>
+
+                    <div class="w50percentlast">
+                        <div class="wh90percent textleft right">
+                            <span class="opensans size13">Check out date</span>
+                            <input type="text" class="form-control" id="datepicker2" #Checkout placeholder="mm/dd/yyyy" />
+                        </div>
+                    </div>
+
+                    <div class="clearfix pbottom15"></div>
+
+                    <div class="" style="margin-bottom:20px;">
+                        <div class="wh100percent textleft right ohidden">
+
+                            <div class="wh33percent textleft left">
+                                <span class="opensans size13">Bed</span>
+                                <select class="form-control mySelectBoxClass" #Noofbed>
+                                    <option>1</option>
+                                    <option selected>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+
+                            <div class="wh33percent textleft left">
+                                <span class="opensans size13">Adult</span>
+                                <select class="form-control mySelectBoxClass" #Noofadult>
+                                    <option>1</option>
+                                    <option selected>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+
+                            <div class="wh33percent textleft left ohidden">
+                                <span class="opensans size13">Child</span>
+                                <select class="form-control mySelectBoxClass" #Noofchild>
+                                    <option>0</option>
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix pbottom15"></div>
+
+                    <button (click)="RoomSearch(Checkin.value,Checkout.value,Noofbed.value,Noofadult.value,Noofchild.value)" type="submit" class="btn-search3">
+                        Search
+                    </button>
+                </div>
+                <!-- END OF HOTELS TAB -->
+            </div>
+            <!-- END OF BOOK FILTERS -->
+            <!-- Price range -->
+            <!--<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
+                Price range <span class="collapsearrow"></span>
+            </button>
+
+            <div id="collapse2" class="collapse in">
+                <div class="padding20">
+                    <div class="layout-slider wh100percent">
+                        <span class="cstyle09"><input id="Slider1" type="slider" name="price" value="400;700" /></span>
+                    </div>
+                    <script type="text/javascript">
+                        jQuery("#Slider1").slider({ from: 100, to: 1000, step: 5, smooth: true, round: 0, dimension: "&nbsp;$", skin: "round" });
+                    </script>
+                </div>
+            </div>-->
+            <!-- End of Price range -->
+
+            <!--<div class="line2"></div>-->
+
+            <!-- Acomodations -->
+            <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
+                Room Type <span class="collapsearrow"></span>
+            </button>
+
+            <div id="collapse3" class="collapse in">
+                <div class="hpadding20">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="Option1" [(ngModel)]="RoomType" value="All" checked>
+                            All
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="Option2" [(ngModel)]="RoomType" value="Single Bed">
+                            Single Bed
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="Option3" [(ngModel)]="RoomType" value="Double Bed">
+                            Double Bed
+                        </label>
+                    </div>
+                    {{RoomType}}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- End of Acomodations -->
+
+            <div class="line2"></div>
+
+            <!-- Hotel Preferences -->
+            <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
+                Room Facilities <span class="collapsearrow"></span>
+            </button>
+            <div id="collapse4" class="collapse in">
+                <div class="hpadding20" *ngFor="let facility of facilities">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" (change)=SetFacility($event.target.checked,facility.facilityName)> {{facility.facilityName}}
+                        </label>
+                    </div>
+                    <ng-template #elsef>
+                        <div>
+                            <label>
+                                <input type="checkbox" (change)=SetFacility($event.target.checked,facility.facilityName)> {{facility.facilityName}}
+                            </label>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- End of Hotel Preferences -->
+            <div class="clearfix"></div>
+            <br />
+            <br />
+            <br />
+
+
+        </div>
+        <!-- END OF FILTERS -->
+        <!-- LIST CONTENT-->
+        <div class="rightcontent col-md-9 offset-0">
+
+            <div class="hpadding20">
+                <!-- Top filters -->
+                <div class="topsortby">
+                    <div class="col-md-1 offset-0">
+
+                        <div class="left mt7"><b>Sort by:</b></div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <!--<div class="w50percent">
+                            <div class="">
+                                <select class="form-control mySelectBoxClass ">
+                                    <option value="" selected disabled hidden>Floor</option>
+                                    <option value="Basement">Basement</option>
+                                    <option value="First Floor">First Floor</option>
+                                    <option value="Second Floor">Second Floor</option>
+                                    <option value="Third Floor">Third Floor</option>
+                                </select>
+                            </div>
+                        </div>-->
+
+                        <div class="w50percent">
+                            <div class="">
+                                <select class="form-control mySelectBoxClass ">
+                                    <option value="" selected disabled hidden>Price</option>
+                                    <option value="asc">Low to high</option>
+                                    <option value="dsc">High to low</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of topfilters-->
+            </div>
+            <!-- End of padding -->
+
+            <br /><br />
+            <div class="clearfix"></div>
+
+
+            <div class="itemscontainer offset-1">
+
+
+                <div class="col-md-4">
+                    <div class="listitem">
+                        <img src="/dist/images/items/item1.jpg" alt="" />
+                        <div class="liover"></div>
+                        <a class="fav-icon" href="#"></a>
+                        <a class="book-icon" href="#"></a>
+                    </div>
+                    <div class="itemlabel">
+                        <button class="bookbtn right mt1" data-toggle="modal" data-target="#customerInfoModal">Book</button>
+                        <b>Mabely Grand Hotel</b><br />
+                        <p class="lightgrey"><span class="green size14"><b>$36.00</b></span> avg/night</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="listitem">
+                        <img src="/dist/images/items/item1.jpg" alt="" />
+                        <div class="liover"></div>
+                        <a class="fav-icon" href="#"></a>
+                        <a class="book-icon" href="#"></a>
+                    </div>
+                    <div class="itemlabel">
+                        <button class="bookbtn right mt1" data-toggle="modal" data-target="#customerInfoModal">Book</button>
+                        <b>Mabely Grand Hotel</b><br />
+                        <p class="lightgrey"><span class="green size14"><b>$36.00</b></span> avg/night</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="listitem">
+                        <img src="/dist/images/items/item1.jpg" alt="" />
+                        <div class="liover"></div>
+                        <a class="fav-icon" href="#"></a>
+                        <a class="book-icon" href="#"></a>
+                    </div>
+                    <div class="itemlabel">
+                        <button class="bookbtn right mt1" data-toggle="modal" data-target="#customerInfoModal">Book</button>
+                        <b>Mabely Grand Hotel</b><br />
+                        <p class="lightgrey"><span class="green size14"><b>$36.00</b></span> avg/night</p>
+                    </div>
+                </div>
+
+
+                <div class="clearfix"></div>
+                <div class="offset-2"><hr class="featurette-divider3"></div>
+
+                <div class="col-md-4">
+                    <div class="listitem">
+                        <img src="/dist/images/items/item1.jpg" alt="" />
+                        <div class="liover"></div>
+                        <a class="fav-icon" href="#"></a>
+                        <a class="book-icon" href="#"></a>
+                    </div>
+                    <div class="itemlabel">
+                        <button class="bookbtn right mt1" data-toggle="modal" data-target="#customerInfoModal">Book</button>
+                        <b>Mabely Grand Hotel</b><br />
+                        <p class="lightgrey"><span class="green size14"><b>$36.00</b></span> avg/night</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="listitem">
+                        <img src="/dist/images/items/item1.jpg" alt="" />
+                        <div class="liover"></div>
+                        <a class="fav-icon" href="#"></a>
+                        <a class="book-icon" href="#"></a>
+                    </div>
+                    <div class="itemlabel">
+                        <button class="bookbtn right mt1" data-toggle="modal" data-target="#customerInfoModal">Book</button>
+                        <b>Mabely Grand Hotel</b><br />
+                        <p class="lightgrey"><span class="green size14"><b>$36.00</b></span> avg/night</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="listitem">
+                        <img src="/dist/images/items/item1.jpg" alt="" />
+                        <div class="liover"></div>
+                        <a class="fav-icon" href="#"></a>
+                        <a class="book-icon" href="#"></a>
+                    </div>
+                    <div class="itemlabel">
+                        <button class="bookbtn right mt1" data-toggle="modal" data-target="#customerInfoModal">Book</button>
+                        <b>Mabely Grand Hotel</b><br />
+                        <p class="lightgrey"><span class="green size14"><b>$36.00</b></span> avg/night</p>
+                    </div>
+                </div>
+
+
+                <div class="clearfix"></div>
+                <div class="offset-2"><hr class="featurette-divider3"></div>
+
+
+
+            </div>
+            <!-- End of offset1-->
+
+            <div class="hpadding20">
+
+                <ul class="pagination right paddingbtm20">
+                    <li class="disabled"><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+        <!-- END OF LIST CONTENT-->
+
+
+
+    </div>
+    <!-- END OF container-->
+
+</div>
+<!-- END OF CONTENT -->
+<footer></footer>
+
+<!-- large Modal Starts-->
+<div class="modal fade" id="customerInfoModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Customer Information for room booking</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="email">First Name:<code>*</code></label>
+                                <input type="text" class="form-control" #Firstname placeholder="Enter first name" required name="firstname">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="middlename">Middle Name:</label>
+                                <input type="text" class="form-control" #Middlename placeholder="Enter middle name" name="middlename">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lastname">Last Name:<code>*</code></label>
+                                <input type="text" class="form-control" #Lastname placeholder="Enter last name" required name="lastname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="idcardno">ID Card Number:<code>*</code></label>
+                                <input type="text" class="form-control" #Idcardnumber placeholder="Enter natonal id card number" required name="idcardno">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="phonenumber">Contact Number:<code>*</code></label>
+                                <input type="text" class="form-control" #Contactnumber placeholder="Enter phone number" required name="phonenumber">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="address">Address:<code>*</code></label>
+                                <input type="text" class="form-control" #Address placeholder="Enter address" required name="adress">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="city">City:<code>*</code></label>
+                                <input type="text" class="form-control" #City placeholder="Enter city name" required name="city">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="country">Country:<code>*</code></label>
+                                <input type="text" class="form-control" #Country placeholder="Enter country name" required name="country">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Payment status:<code>*</code></label>
+                                <br />
+                                <div class="btn-group btn-group-toggle" *ngFor="let ptype of paymentType">
+                                    <label (click)="SetPaymentType(ptype);" class="btn btn-default form-check-label">
+                                        <input type="radio" required name="ptype" value="{{ptype}}" autocomplete="off"> {{ptype}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="totalpayment">Total Payment (per/day):</label>
+                                <!--<input type="text" class="form-control" id="totalpayment" name="totalpayment" placeholder="Total Payment" value="{{FeeCal}}">-->
+                            </div>
+                            <div class="col-md-4">
+                                <label for="number">Advance Payment:<code>*</code></label>
+                                <input type="number" class="form-control" #Advancepayment required name="advancepayment" placeholder="Enter advance payment">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                        </div>
+                    </div>
+                    <!--<button (click)="RoomBookingbyAdmin(Fromdate.value,Todate.value,Bookingdate.value,Firstname.value,Middlename.value,Lastname.value,Idcardnumber.value,Contactnumber.value,Advancepayment.value,City.value,Country.value,Address.value)" data-dismiss="modal" type="submit" class="btn btn-default">Book Now</button>-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- large Modal Ends-->
